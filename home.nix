@@ -60,5 +60,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.starship.enable = true;
+  home.file.".config/starship/starship.toml".source = ./configs/starship/starship.toml;
   programs.bash.enable = true;
 }
