@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-    programs.neoviml.enable = true;
-    programs.neoviml.viAlias = true;
-    programs.neoviml.vimAlias = true;
+    programs.neovim.enable = true;
+    programs.neovim.viAlias = true;
+    programs.neovim.vimAlias = true;
   }
