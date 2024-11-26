@@ -20,6 +20,8 @@
   home.packages = [
     pkgs.neofetch
     pkgs.zoxide
+    pkgs.bat
+    pkgs.navi
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
