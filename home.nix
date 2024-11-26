@@ -20,7 +20,6 @@
   home.packages = [
     pkgs.neofetch
     pkgs.zoxide
-    pkgs.home-manager
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
