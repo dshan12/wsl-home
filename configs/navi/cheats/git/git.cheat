@@ -1,0 +1,130 @@
+% GIT, CODE
+$ toplevel_directory: git rev-parse --show-toplevel
+$ unstaged_files: git status --untracked-files=no -s --porcelain | awk '{print $NF}' | tr ' ' '\n'
+$ current_branch: git branch --show-current
+$ branches: git branch | tr ' ' '\n'
+
+# Adds a remote for a git repository
+
+git remote add <remote_name> <remote_url>
+
+# Commit: New feature has been added
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "feat: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+# Commit: A bug fix has occured
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "fix: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+# Commit: Chore doesn't affect code
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "chore: <commit_message>" && \
+
+git diff --quiet || \
+(read -n 1 -p $'\033[33mThere are unstaged changes. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes.\033[0m\n"; \
+ fi) && \
+git commit -m "fix: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+
+# Commit: Refractored the code but doesn't affect code
+
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "refractor: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+
+# Commit: Docs changed
+
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "docs: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+# Commit: Style changed the code to make it look better
+
+git status --porcelain | grep -q . && \
+(read -n 1 -p $'\033[33mThere are unstaged changes or untracked files. Do you want to stage all changes? [y/N]\033[0m ' REPLY && echo && \
+ if [[ $REPLY =~ ^[Yy]$ ]]; then \
+   printf "\033[33mStaging all changes and untracked files...\033[0m\n" && git add -A; \
+ else \
+   printf "\033[33mProceeding without staging new changes or untracked files.\033[0m\n"; \
+ fi) && \
+git commit -m "style: <commit_message>" && \
+(git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null && \
+ printf "\033[32mBranch has upstream. Pushing...\033[0m\n" && git push || \
+ (printf "\033[1;31mBranch doesn't have an upstream. Setting it to origin/$(git branch --show-current)\033[0m\n" && \
+  git push -u origin $(git branch --show-current)))
+
+# Displays unstaged changes for file
+cd <toplevel_directory>; \
+    git diff <unstaged_files>
+
+# Displays formatted log of commits for a repo
+git log --all --decorate --oneline --graph
+
+# Change git branch
+gt checkout <branches>
+
+# Git setup
+ssh-keygen -t ed25519 -b 4096 -C <email> -f ~/.ssh/id_ed25519 -N "" && eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519 && xclip -selection clipboard < ~/.ssh/id_ed25519.pub && git config --global user.email <email> && git config --global user.name "<name>"
+
+# Git delete branch
+git branch -d <branch_name>
+
+# Git delete all remote branches except main
+git branch -r --merged main | ack -v main | sed -e 's/\// :/' | xargs -n2 git push

@@ -1,0 +1,48 @@
+% Docker
+
+$ port: echo '3000 8080 8000 80' | tr ' ' '\n'
+$ name: echo ' ' | tr ' ' '\n' 
+$ volume: docker volume ls --format "{{.Name}}" | tr ' ' '\n'
+$ image_name: docker images --- --column 3 --header-lines 1 --delimiter '\s\s+'
+$ container_name: docker ps -a --format "{{.Names}}" | sort | uniq |tr ' ' '\n'
+
+
+# Docker remove all containers
+
+docker rm $(docker ps -aq)
+
+# Docker remove all images
+
+docker image rm $(docker images -aq)
+
+# Remove one image
+
+docker image rm <image_id>
+
+# Docker remove one container
+
+docker rm <container_name>
+
+# Run DEV container
+docker volume ls --format "{{.Name}}" | grep -q "<volume>" || docker volume create <volume> && docker run -it --name <name> -p <port>:<port> -e CONTAINER_NAME="<name>" -v <volume>:/home/dshan/<volume> dev_setup
+
+# Run DEV container with custom ports
+echo "How many ports do you want to expose?"; read num_ports; for ((i=1; i<=num_ports; i++)); do echo "Enter port number $i:"; read port; ports+=("-p $port:$port"); done; docker volume ls --format "{{.Name}}" | grep -q "<volume>" || docker volume create <volume> && docker run -it --name <name> ${ports[@]} -e CONTAINER_NAME="<name>" -v <volume>:/home/dshan/<volume> dev_setup
+
+
+# Dev Setup Update
+docker run -it -e CONTAINER_NAME="dev_setup_update" --name dev_setup_update dev_setup
+
+# Attach to a Docker container
+
+docker inspect -f '{{.State.Running}}' <container_name> | grep -q "false" && docker start $container_name; docker attach $container_name
+
+# Docker commit
+
+docker commit <container_name> "$(docker info | sed '/Username:/!d;s/.* //')"/<docker_container>
+
+# Remove one volume
+docker volume rm <volume>
+
+# List all containers
+docker ps -a
