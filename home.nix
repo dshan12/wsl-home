@@ -21,6 +21,7 @@
     pkgs.neofetch
     pkgs.zoxide
     pkgs.bat
+    pkgs.fzf
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
