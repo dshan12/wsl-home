@@ -1,7 +1,6 @@
 # Nushell Configuration
 
-# Use Starship as the Prompt
-def prompt [] {
-  starship prompt
-}
+# Use starship prompt
+use ~/.config/nushell/starship.nu
+use ~/.config/nushell/zoxide.nu
 
